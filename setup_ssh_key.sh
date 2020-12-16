@@ -28,10 +28,12 @@ ssh_file="$ssh_directory/authorized_keys"
 
 if [ -d $ssh_directory ]
 then
-  echo "Directory $ssh_directory exists"
+  printInfo "Directory $ssh_directory exists"
 else
-  echo "Creating directory $ssh_directory"
+  printInfo "Creating directory $ssh_directory"
   sudo mkdir -p $ssh_directory
+  touch $ssh_file
+  ls -al $ssh_directory
 fi
 
 
@@ -48,7 +50,7 @@ sudo chown $user:$user $ssh_directory/*
 ## Copy the ssh key from Workstation
 printInfo "Copy ssh key from Workstation."
 sudo sshpass -p $password scp acke@172.104.247.156:~/.ssh/ansible.pub $ssh_file
-ls -al .ssh
+ls -al $ssh_directory
 
 
 
