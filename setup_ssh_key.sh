@@ -10,8 +10,6 @@ printInfo() {
 ## Read the variables from the config file
 printInfo "Reading the default var config file and the specific var config file."
 source vars/config.sh
-#printInfo "Default config file is $default_config_file"
-#printInfo "IP config file is $ip_config_file"
 
 user="$( jq -r '.user' "$default_config_file" )"
 password="$( jq -r '.password' "$default_config_file" )"
@@ -32,10 +30,17 @@ then
 else
   printInfo "Creating directory $ssh_directory"
   sudo mkdir -p $ssh_directory
-  touch $ssh_file
   ls -al $ssh_directory
 fi
 
+if [ -f $ssh_file ]
+then
+  printInfo "File $ssh_file exists"
+else
+  printInfo "Creating file $ssh_file"
+  touch $ssh_file
+  ls -al $ssh_directory
+fi
 
 
 ## Change permission of directory .ssh and files in it
@@ -47,10 +52,12 @@ sudo chown $user:$user $ssh_directory/*
 
 
 
-## Copy the ssh key from Workstation
-printInfo "Copy ssh key from Workstation."
-sudo sshpass -p $password scp acke@172.104.247.156:~/.ssh/ansible.pub $ssh_file
+## Copy authorized keys to file /home/$user/.ssh/authorized_keys
+printInfo "Copy authorized keys to file ${ssh_file}"
+cat files/id_ed25519.pub >> $ssh_file
+cat files/id_rsa.pub >> $ssh_file
 ls -al $ssh_directory
+cat $ssh_file
 
 
 

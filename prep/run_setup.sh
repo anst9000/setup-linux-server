@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "-- Script ${0} copies files to /usr/local/bin and sets .sh-files as executable."
+
 
 echo "-- Copy files to directory /usr/local/bin"
 cp -R ../* /usr/local/bin

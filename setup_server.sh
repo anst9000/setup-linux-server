@@ -36,8 +36,8 @@ sudo sed -i "s/^.*127.*$/$localhost\tlocalhost\n127.0.1.1\t$hostname\n$ip_addres
 
 ## Copy file /etc/nanorc and nanorc template yaml.nanorc to new server
 printInfo "Copy file /etc/nanorc and nanorc template yaml.nanorc to new server"
-sudo scp root@172.104.247.156:/etc/nanorc /etc/nanorc
-sudo scp root@172.104.247.156:/usr/share/nano/yaml.nanorc /usr/share/nano/yaml.nanorc
+cat files/nanorc >> /etc/nanorc
+cat files/yaml.nanorc >> /usr/share/nano/yaml.nanorc
 
 
 
