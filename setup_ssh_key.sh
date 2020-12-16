@@ -56,6 +56,7 @@ sudo chown $user:$user $ssh_directory/*
 printInfo "Copy authorized keys to file ${ssh_file}"
 cat files/id_ed25519.pub >> $ssh_file
 cat files/id_rsa.pub >> $ssh_file
+cat files/id_acke.pub >> $ssh_file
 ls -al $ssh_directory
 cat $ssh_file
 
